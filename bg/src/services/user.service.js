@@ -88,7 +88,7 @@ class UserService {
     const user = await this.findById(userId);
     const member = await this.getMemberInfo(userId);
 
-    const dailyLimit = member ? member.daily_limit : user.daily_free_count;
+    const dailyLimit = member ? member.daily_limit : (user ? user.daily_free_count : 3);
 
     return Math.max(0, dailyLimit - usedCount);
   }

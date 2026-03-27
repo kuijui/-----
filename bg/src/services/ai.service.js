@@ -310,21 +310,21 @@ class AIService {
     const prompt = this.buildPrompt(style, topic, description, length);
     
     let aiResponse;
-    try {
-      if (this.openaiApiKey) {
+    if (this.openaiApiKey) {
+      try {
         aiResponse = await this.generateWithOpenAI(prompt);
-      } else if (this.qwenApiKey) {
-        aiResponse = await this.generateWithQwen(prompt);
-      } else {
-        throw new Error('未配置AI服务，请检查环境变量');
+      } catch (openaiError) {
+        if (this.qwenApiKey) {
+          logger.info('OpenAI失败，自动切换到通义千问', { reason: openaiError.message });
+          aiResponse = await this.generateWithQwen(prompt);
+        } else {
+          throw openaiError;
+        }
       }
-    } catch (error) {
-      if (this.qwenApiKey && error.message.includes('OpenAI')) {
-        logger.info('OpenAI失败，尝试使用通义千问');
-        aiResponse = await this.generateWithQwen(prompt);
-      } else {
-        throw error;
-      }
+    } else if (this.qwenApiKey) {
+      aiResponse = await this.generateWithQwen(prompt);
+    } else {
+      throw new Error('未配置AI服务，请检查环境变量');
     }
     
     const parsed = this.parseAIResponse(aiResponse.content);

@@ -194,6 +194,54 @@ pm2 restart ai-copywriter
 - 网络是否可以访问AI服务
 - API额度是否充足
 
+## 单元测试
+
+### 运行测试
+
+```bash
+# 运行所有测试
+npm test
+
+# 带覆盖率报告
+npm test -- --coverage
+
+# 监听模式（开发时）
+npm test -- --watch
+```
+
+### 测试结构
+
+```
+src/__tests__/
+├── ai.service.test.js      # AI服务测试（25个用例）
+├── user.service.test.js    # 用户服务测试（26个用例）
+├── content.service.test.js # 文案服务测试（17个用例）
+└── utils.test.js           # JWT + 响应工具测试（16个用例）
+```
+
+### 测试覆盖模块
+
+| 模块 | 用例数 | 覆盖内容 |
+|------|--------|----------|
+| `ai.service` | 25 | buildPrompt、parseAIResponse、calculateScore、generate、fallback切换 |
+| `user.service` | 26 | CRUD、缓存、每日限额、会员判断 |
+| `content.service` | 17 | 生成、历史、收藏、分页 |
+| `utils` | 16 | JWT生成/验证、API响应格式 |
+
+## 已修复的Bug
+
+### Bug #1 - AI Fallback 逻辑失效（`ai.service.js`）
+
+**问题**：OpenAI 失败时的 fallback 判断 `error.message.includes('OpenAI')` 永远为 `false`，因为抛出的错误是"AI生成失败，请稍后重试"而非含"OpenAI"的字符串，导致通义千问备用永远不会触发。
+
+**修复**：将 try-catch 包裹在 `generateWithOpenAI` 调用处，OpenAI 失败后直接尝试 `generateWithQwen`。
+
+### Bug #2 - 用户不存在时 TypeError（`user.service.js`）
+
+**问题**：`getRemainingCount` 中若 `findById` 返回 `undefined`（用户不存在），则 `user.daily_free_count` 抛出 `TypeError: Cannot read properties of undefined`。
+
+**修复**：添加 null 检查 `user ? user.daily_free_count : 3`，用户不存在时默认使用 3 次。
+
 ## 技术栈
 
 - **框架**: Express.js
@@ -203,6 +251,7 @@ pm2 restart ai-copywriter
 - **认证**: JWT
 - **日志**: Winston
 - **限流**: express-rate-limit
+- **测试**: Jest 29
 
 ## License
 
