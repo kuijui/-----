@@ -1,0 +1,57 @@
+<view class="container">
+  <view class="score-card" wx:if="{{content}}">
+    <view class="score-label">爆款指数</view>
+    <view class="score-value">{{content.score}}分</view>
+    <view class="score-icon">🔥</view>
+  </view>
+
+  <view class="card" wx:if="{{content}}">
+    <view class="section">
+      <view class="section-title">📌 推荐标题（选择一个）</view>
+      <view class="titles">
+        <view 
+          wx:for="{{content.titles}}" 
+          wx:key="index"
+          class="title-item {{selectedTitleIndex === index ? 'selected' : ''}}"
+          bindtap="onTitleSelect"
+          data-index="{{index}}"
+        >
+          <radio checked="{{selectedTitleIndex === index}}" color="#FF6B9D"/>
+          <text class="title-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-title">📝 正文内容</view>
+      <view class="content-text">{{content.content}}</view>
+    </view>
+
+    <view class="section">
+      <view class="section-title">🏷️ 话题标签</view>
+      <view class="tags">
+        <text wx:for="{{content.tags}}" wx:key="index" class="tag">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="actions" wx:if="{{content}}">
+    <button class="action-btn primary" bindtap="onCopy">
+      📋 一键复制
+    </button>
+    <button class="action-btn" bindtap="onCollect">
+      {{content.is_collected ? '⭐ 已收藏' : '⭐ 收藏'}}
+    </button>
+  </view>
+
+  <view class="bottom-actions">
+    <button class="btn-secondary" bindtap="onRegenerate">
+      🔄 重新生成
+    </button>
+  </view>
+
+  <view class="loading" wx:if="{{loading}}">
+    <view class="loading-icon"></view>
+    <view class="loading-text">加载中...</view>
+  </view>
+</view>

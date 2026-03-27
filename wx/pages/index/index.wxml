@@ -1,0 +1,87 @@
+<view class="container">
+  <view class="header">
+    <view class="title">🎨 AI小红书文案生成器</view>
+    <view class="subtitle">让爆款文案触手可得</view>
+  </view>
+
+  <view class="card">
+    <view class="form-item">
+      <view class="label">📝 输入主题或关键词 <text class="required">*</text></view>
+      <textarea 
+        class="textarea" 
+        placeholder="例如：春季穿搭、护肤好物、美食探店..."
+        value="{{topic}}"
+        bindinput="onTopicInput"
+        maxlength="100"
+      />
+      <view class="char-count">{{topic.length}}/100</view>
+    </view>
+
+    <view class="form-item">
+      <view class="label">📋 产品/内容描述（选填）</view>
+      <textarea 
+        class="textarea short" 
+        placeholder="简单描述一下内容，帮助AI更好地理解..."
+        value="{{description}}"
+        bindinput="onDescriptionInput"
+        maxlength="200"
+      />
+    </view>
+
+    <view class="form-item">
+      <view class="label">🎭 选择文案风格 <text class="required">*</text></view>
+      <view class="style-grid">
+        <view 
+          wx:for="{{styles}}" 
+          wx:key="index"
+          class="style-item {{selectedStyle === item ? 'active' : ''}}"
+          bindtap="onStyleSelect"
+          data-style="{{item}}"
+        >
+          {{item}}
+        </view>
+      </view>
+    </view>
+
+    <view class="form-item">
+      <view class="label">📏 文案长度 <text class="required">*</text></view>
+      <view class="length-options">
+        <view 
+          wx:for="{{lengths}}" 
+          wx:key="value"
+          class="length-item {{selectedLength === item.value ? 'active' : ''}}"
+          bindtap="onLengthSelect"
+          data-length="{{item.value}}"
+        >
+          <view class="length-label">{{item.label}}</view>
+          <view class="length-desc">{{item.desc}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="action-area">
+    <view class="remaining-count">
+      剩余次数：<text class="count">{{remainingCount}}</text>/{{dailyLimit}}
+      <text class="link" bindtap="goToMember">开通会员</text>
+    </view>
+    <button class="btn-primary" bindtap="onGenerate" disabled="{{generating}}">
+      {{generating ? '生成中...' : '✨ 立即生成文案'}}
+    </button>
+  </view>
+
+  <view class="hot-topics" wx:if="{{hotTopics.length > 0}}">
+    <view class="section-title">💡 今日热门主题</view>
+    <view class="topic-list">
+      <view 
+        wx:for="{{hotTopics}}" 
+        wx:key="index"
+        class="topic-tag"
+        bindtap="onHotTopicTap"
+        data-topic="{{item}}"
+      >
+        #{{item}}
+      </view>
+    </view>
+  </view>
+</view>
