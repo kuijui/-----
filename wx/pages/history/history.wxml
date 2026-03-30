@@ -1,0 +1,46 @@
+<view class="container">
+  <view class="filter-bar">
+    <scroll-view scroll-x class="filter-scroll">
+      <view
+        wx:for="{{filters}}"
+        wx:key="value"
+        class="filter-item {{currentFilter === item.value ? 'active' : ''}}"
+        bindtap="onFilterChange"
+        data-value="{{item.value}}"
+      >
+        {{item.label}}
+      </view>
+    </scroll-view>
+  </view>
+
+  <view wx:if="{{list.length === 0 && !loading}}" class="empty">
+    <view class="empty-icon">📭</view>
+    <view class="empty-text">暂无生成记录</view>
+    <view class="empty-sub">去首页生成你的第一篇文案吧</view>
+    <button class="btn-primary go-btn" bindtap="goIndex">去生成</button>
+  </view>
+
+  <view class="list" wx:else>
+    <view
+      wx:for="{{list}}"
+      wx:key="id"
+      class="history-card"
+      bindtap="goDetail"
+      data-id="{{item.id}}"
+    >
+      <view class="card-header">
+        <view class="topic">{{item.topic}}</view>
+        <view class="score-badge">🔥{{item.score}}</view>
+      </view>
+      <view class="card-preview">{{item.content}}</view>
+      <view class="card-footer">
+        <view class="style-tag">{{item.style}}</view>
+        <view class="card-time">{{item.created_at}}</view>
+        <view wx:if="{{item.is_collected}}" class="collected-icon">⭐</view>
+      </view>
+    </view>
+
+    <view wx:if="{{loading}}" class="loading-more">加载中...</view>
+    <view wx:elif="{{noMore}}" class="no-more">— 已经到底了 —</view>
+  </view>
+</view>

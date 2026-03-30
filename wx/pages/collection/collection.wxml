@@ -1,0 +1,35 @@
+<view class="container">
+  <view wx:if="{{list.length === 0 && !loading}}" class="empty">
+    <view class="empty-icon">⭐</view>
+    <view class="empty-text">暂无收藏</view>
+    <view class="empty-sub">生成文案后点击收藏，方便下次查看</view>
+    <button class="btn-primary go-btn" bindtap="goIndex">去生成</button>
+  </view>
+
+  <view class="list" wx:else>
+    <view
+      wx:for="{{list}}"
+      wx:key="id"
+      class="collection-card"
+      bindtap="goDetail"
+      data-id="{{item.id}}"
+    >
+      <view class="card-header">
+        <view class="topic">{{item.topic}}</view>
+        <view class="score-badge">🔥{{item.score}}</view>
+      </view>
+      <view class="card-preview">{{item.content}}</view>
+      <view class="card-tags">
+        <text wx:for="{{item.tags}}" wx:key="index" wx:for-item="tag" class="tag">{{tag}}</text>
+      </view>
+      <view class="card-footer">
+        <view class="style-tag">{{item.style}}</view>
+        <view class="collected-time">收藏于 {{item.collected_at}}</view>
+        <view class="uncollect" catchtap="uncollect" data-id="{{item.id}}">取消收藏</view>
+      </view>
+    </view>
+
+    <view wx:if="{{loading}}" class="loading-more">加载中...</view>
+    <view wx:elif="{{noMore}}" class="no-more">— 已经到底了 —</view>
+  </view>
+</view>

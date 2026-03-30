@@ -1,0 +1,44 @@
+<view class="container">
+  <view class="hero">
+    <view class="hero-title">👑 开通会员</view>
+    <view class="hero-sub">解锁无限创作潜能</view>
+    <view wx:if="{{currentPlan}}" class="current-badge">
+      当前方案：{{currentPlan}} · 剩余{{expireDate}}
+    </view>
+  </view>
+
+  <view class="plans">
+    <view
+      wx:for="{{plans}}"
+      wx:key="id"
+      class="plan-card {{selectedPlan === item.id ? 'selected' : ''}} {{item.hot ? 'hot' : ''}}"
+      bindtap="selectPlan"
+      data-id="{{item.id}}"
+    >
+      <view wx:if="{{item.hot}}" class="hot-tag">推荐</view>
+      <view class="plan-name">{{item.name}}</view>
+      <view class="plan-price">
+        <text class="price-symbol">¥</text>
+        <text class="price-num">{{item.price}}</text>
+        <text class="price-unit">/{{item.unit}}</text>
+      </view>
+      <view class="plan-origin" wx:if="{{item.origin}}">原价 ¥{{item.origin}}</view>
+      <view class="plan-desc">{{item.dailyLimit}}次/天 · 无广告</view>
+    </view>
+  </view>
+
+  <view class="benefits card">
+    <view class="benefits-title">会员专属权益</view>
+    <view class="benefit-item" wx:for="{{benefits}}" wx:key="index">
+      <text class="benefit-icon">✅</text>
+      <text class="benefit-text">{{item}}</text>
+    </view>
+  </view>
+
+  <view class="action-area">
+    <button class="btn-primary" bindtap="onPurchase" disabled="{{paying}}">
+      {{paying ? '支付中...' : '立即开通 · ¥' + currentPrice}}
+    </button>
+    <view class="tip">购买即同意《会员服务协议》· 支持微信支付</view>
+  </view>
+</view>

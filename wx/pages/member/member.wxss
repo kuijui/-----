@@ -1,0 +1,154 @@
+.container {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding-bottom: 40rpx;
+}
+
+.hero {
+  background: linear-gradient(135deg, #FF6B9D 0%, #FFA06B 100%);
+  padding: 60rpx 30rpx 50rpx;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 48rpx;
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 12rpx;
+}
+
+.hero-sub {
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 20rpx;
+}
+
+.current-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.25);
+  color: #fff;
+  font-size: 24rpx;
+  padding: 8rpx 24rpx;
+  border-radius: 30rpx;
+}
+
+.plans {
+  display: flex;
+  gap: 20rpx;
+  padding: 24rpx 20rpx;
+}
+
+.plan-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx 20rpx;
+  text-align: center;
+  border: 4rpx solid transparent;
+  position: relative;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06);
+  transition: all 0.2s;
+}
+
+.plan-card.selected {
+  border-color: #FF6B9D;
+  box-shadow: 0 4rpx 20rpx rgba(255,107,157,0.25);
+}
+
+.plan-card.hot {
+  background: linear-gradient(180deg, #fff9fb 0%, #fff 100%);
+}
+
+.hot-tag {
+  position: absolute;
+  top: -2rpx;
+  right: 20rpx;
+  background: linear-gradient(135deg, #FF6B9D, #FFA06B);
+  color: #fff;
+  font-size: 22rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 0 0 12rpx 12rpx;
+}
+
+.plan-name {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+}
+
+.plan-price {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  line-height: 1;
+  margin-bottom: 8rpx;
+}
+
+.price-symbol {
+  font-size: 28rpx;
+  color: #FF6B9D;
+  font-weight: 600;
+  margin-bottom: 6rpx;
+}
+
+.price-num {
+  font-size: 64rpx;
+  color: #FF6B9D;
+  font-weight: 700;
+}
+
+.price-unit {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+
+.plan-origin {
+  font-size: 22rpx;
+  color: #ccc;
+  text-decoration: line-through;
+  margin-bottom: 10rpx;
+}
+
+.plan-desc {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.benefits {
+  margin: 0 20rpx 20rpx;
+}
+
+.benefits-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 0;
+}
+
+.benefit-icon {
+  font-size: 30rpx;
+  margin-right: 16rpx;
+}
+
+.benefit-text {
+  font-size: 28rpx;
+  color: #555;
+}
+
+.action-area {
+  padding: 0 20rpx;
+}
+
+.tip {
+  text-align: center;
+  font-size: 22rpx;
+  color: #bbb;
+  margin-top: 16rpx;
+}
