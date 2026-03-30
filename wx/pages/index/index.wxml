@@ -29,6 +29,30 @@
     </view>
 
     <view class="form-item">
+      <view class="label">🖼️ 参考图片（选填）</view>
+      <view class="img-tip">上传产品/场景图，AI将结合图片生成更精准的文案</view>
+      <view class="img-grid">
+        <view
+          wx:for="{{images}}"
+          wx:key="index"
+          class="img-item"
+        >
+          <image src="{{item}}" class="img-preview" mode="aspectFill" />
+          <view class="img-delete" catchtap="onDeleteImage" data-index="{{index}}">×</view>
+        </view>
+        <view
+          wx:if="{{images.length < 10}}"
+          class="img-add"
+          bindtap="onAddImage"
+        >
+          <view class="img-add-icon">＋</view>
+          <view class="img-add-text">添加图片</view>
+        </view>
+      </view>
+      <view class="img-count">{{images.length}}/10</view>
+    </view>
+
+    <view class="form-item">
       <view class="label">🎭 选择文案风格 <text class="required">*</text></view>
       <view class="style-grid">
         <view 
@@ -44,7 +68,7 @@
     </view>
 
     <view class="form-item">
-      <view class="label">📏 文案长度 <text class="required">*</text></view>
+      <view class="label">� 文案长度 <text class="required">*</text></view>
       <view class="length-options">
         <view 
           wx:for="{{lengths}}" 

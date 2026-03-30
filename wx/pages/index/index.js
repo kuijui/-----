@@ -16,7 +16,8 @@ Page({
     hotTopics: ['春季穿搭', '护肤好物', '美食探店', '读书笔记', '旅行攻略'],
     remainingCount: 0,
     dailyLimit: 3,
-    generating: false
+    generating: false,
+    images: []
   },
 
   onLoad() {
@@ -86,6 +87,28 @@ Page({
     this.setData({
       topic: e.currentTarget.dataset.topic
     });
+  },
+
+  onAddImage() {
+    const { images } = this.data;
+    if (images.length >= 10) return;
+    const remaining = 10 - images.length;
+    wx.chooseMedia({
+      count: remaining,
+      mediaType: ['image'],
+      sourceType: ['album', 'camera'],
+      success: (res) => {
+        const newPaths = res.tempFiles.map(f => f.tempFilePath);
+        this.setData({ images: [...images, ...newPaths] });
+      }
+    });
+  },
+
+  onDeleteImage(e) {
+    const index = e.currentTarget.dataset.index;
+    const images = [...this.data.images];
+    images.splice(index, 1);
+    this.setData({ images });
   },
 
   async onGenerate() {
