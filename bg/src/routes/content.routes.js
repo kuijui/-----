@@ -9,12 +9,12 @@ router.post('/generate', authMiddleware, strictLimiter, contentController.genera
 
 router.get('/history', authMiddleware, contentController.getHistory);
 
+router.get('/collections/list', authMiddleware, contentController.getCollections);
+
 router.get('/:id', authMiddleware, contentController.getById);
 
 router.post('/:id/collect', authMiddleware, contentController.collect);
 
 router.delete('/:id/collect', authMiddleware, contentController.uncollect);
-
-router.get('/collections/list', authMiddleware, contentController.getCollections);
 
 module.exports = router;

@@ -17,6 +17,9 @@ page {
 }
 
 .btn-primary {
+  display: block;
+  width: 100%;
+  padding: 0;
   background: linear-gradient(135deg, #FF6B9D 0%, #FFA06B 100%);
   color: #fff;
   border-radius: 50rpx;
@@ -24,11 +27,14 @@ page {
   line-height: 88rpx;
   text-align: center;
   font-size: 32rpx;
-  font-weight: 500;
+  font-weight: 600;
   box-shadow: 0 8rpx 20rpx rgba(255, 107, 157, 0.3);
+  border: none;
+  box-sizing: border-box;
 }
 
 .btn-secondary {
+  padding: 0;
   background: #f5f5f5;
   color: #333;
   border-radius: 50rpx;
@@ -36,6 +42,8 @@ page {
   line-height: 88rpx;
   text-align: center;
   font-size: 32rpx;
+  border: none;
+  box-sizing: border-box;
 }
 
 .text-primary {

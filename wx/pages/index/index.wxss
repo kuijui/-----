@@ -109,6 +109,10 @@
   padding: 0 20rpx 40rpx;
 }
 
+.action-area button {
+  width: 100%;
+}
+
 .remaining-count {
   text-align: center;
   font-size: 28rpx;
@@ -129,7 +133,7 @@
 }
 
 .hot-topics {
-  padding: 0 20rpx 40rpx;
+  padding: 0 20rpx 180rpx;
 }
 
 .section-title {

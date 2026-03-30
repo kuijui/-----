@@ -57,9 +57,12 @@
 
 .go-btn {
   width: 240rpx;
+  padding: 0;
   height: 80rpx;
   line-height: 80rpx;
   font-size: 28rpx;
+  border: none;
+  box-sizing: border-box;
 }
 
 .list {

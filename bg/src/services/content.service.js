@@ -3,6 +3,12 @@ const aiService = require('./ai.service');
 const userService = require('./user.service');
 const logger = require('../utils/logger');
 
+const safeParse = (val) => {
+  if (val === null || val === undefined) return null;
+  if (typeof val === 'string') return JSON.parse(val);
+  return val;
+};
+
 class ContentService {
   async generate(userId, params) {
     const { topic, description, style, length } = params;
@@ -80,8 +86,8 @@ class ContentService {
 
     const list = rows.map(row => ({
       ...row,
-      titles: JSON.parse(row.titles),
-      tags: JSON.parse(row.tags)
+      titles: safeParse(row.titles),
+      tags: safeParse(row.tags)
     }));
 
     return {
@@ -105,8 +111,8 @@ class ContentService {
     const content = rows[0];
     return {
       ...content,
-      titles: JSON.parse(content.titles),
-      tags: JSON.parse(content.tags)
+      titles: safeParse(content.titles),
+      tags: safeParse(content.tags)
     };
   }
 
@@ -160,8 +166,8 @@ class ContentService {
 
     const list = rows.map(row => ({
       ...row,
-      titles: JSON.parse(row.titles),
-      tags: JSON.parse(row.tags)
+      titles: safeParse(row.titles),
+      tags: safeParse(row.tags)
     }));
 
     return {
